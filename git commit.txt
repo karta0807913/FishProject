@@ -1,3 +1,3 @@
 git add -A
-git commit -u "your update commit"
+git commit -u "your update commit!"
 git push -u 
