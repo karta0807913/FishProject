@@ -9,8 +9,7 @@ public class FishMove : MonoBehaviour {
 	// Use this for initialization
 	public FishMove()
     {
-        nextMove = new Vector3(-1, 0, 0);
-        aliveTime = 1200;
+        nextMove = new Vector3(1, 0, 0);
     }
 
     public virtual void move()

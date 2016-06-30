@@ -21,6 +21,7 @@ public class Fish: MonoBehaviour
     void Start()
     {
         action = MOVE_ACTION;
+        aliveTime = 1200;
     }
 
 	void Update ()
