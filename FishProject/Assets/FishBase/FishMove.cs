@@ -6,10 +6,6 @@ public class FishMove : MonoBehaviour {
     public
 #endif
     Vector3 nextMove;
-#if DEBUG
-    public
-#endif
-    float aliveTime;
 	// Use this for initialization
 	public FishMove()
     {
@@ -20,9 +16,5 @@ public class FishMove : MonoBehaviour {
     public virtual void move()
     {
         this.transform.Translate(nextMove * Time.deltaTime);
-        if ((aliveTime -= Time.deltaTime) < 0)
-        {
-            Destroy(this);
-        }
     }
 }
