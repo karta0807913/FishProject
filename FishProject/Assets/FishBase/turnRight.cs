@@ -2,14 +2,8 @@
 using System.Collections;
 
 public class turnRight : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public virtual void move()
+    {
+        this.transform.Translate(-90, 0, 0);
+    }
 }
