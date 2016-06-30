@@ -16,6 +16,8 @@ public class Gravity : MonoBehaviour {
     }
     void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "fish")
+            return;
         speed -= speed /20;
         Destroy(this, 1);
         speedArg = -speedArg;

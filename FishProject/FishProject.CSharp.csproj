@@ -65,13 +65,13 @@
   <ItemGroup>
     <Compile Include="Assets\FishBase\Fish.cs" />
     <Compile Include="Assets\FishBase\FishMove.cs" />
+    <Compile Include="Assets\FishBase\randDom.cs" />
     <Compile Include="Assets\FishBase\turnBack.cs" />
     <Compile Include="Assets\FishBase\turnLeft.cs" />
     <Compile Include="Assets\FishBase\turnRight.cs" />
     <Compile Include="Assets\Gravity.cs" />
     <Compile Include="Assets\test2Can.cs" />
     <Compile Include="Assets\testCam.cs" />
-    <Compile Include="Assets\testGUI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
