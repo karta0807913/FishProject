@@ -13,4 +13,5 @@ public class test2Can : MonoBehaviour {
         this.transform.Translate(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         this.transform.Rotate(-Input.GetAxisRaw("Mouse Y"), Input.GetAxisRaw("Mouse X"), 0);
 	}
+   
 }
