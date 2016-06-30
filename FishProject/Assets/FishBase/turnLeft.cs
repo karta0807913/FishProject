@@ -7,8 +7,8 @@ public class turnLeft : MonoBehaviour {
     {
         return animateTime;
     }
-    public virtual void move()
+    public virtual void move(int speed)
     {
-        this.transform.Translate(90, 0, 0);
+        this.transform.Rotate(0, 90, 0);
     }
 }

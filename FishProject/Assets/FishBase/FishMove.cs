@@ -2,18 +2,8 @@
 using System.Collections;
 
 public class FishMove : MonoBehaviour {
-#if DEBUG
-    public
-#endif
-    Vector3 nextMove;
-	// Use this for initialization
-	public FishMove()
+    public virtual void move(int speed)
     {
-        nextMove = new Vector3(1, 0, 0);
-    }
-
-    public virtual void move()
-    {
-        this.transform.Translate(nextMove * Time.deltaTime);
+        this.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
     }
 }

@@ -7,6 +7,7 @@ public class Fish: MonoBehaviour
     public
 #endif
     float aliveTime;
+    int moveSpeed;
     public FishMove moveStyle;
     public turnBack backStyle;
     public turnLeft leftStyle;
@@ -17,22 +18,22 @@ public class Fish: MonoBehaviour
     const int LEFT_ACTION   = 2;
     const int RIGHT_ACTION  = 3;
     int action;
+    public float changeTime;
     
     void Start()
     {
+        moveSpeed = 1;
+        changeTime = 5 + (Random.value * 4) - 2;
         action = MOVE_ACTION;
         aliveTime = 1200;
     }
 
 	void Update ()
     {
-        if ((aliveTime -= Time.deltaTime) < 0)
-        {
-            Destroy(this.gameObject);
-        }
+        rnadom();
         switch (action){
             case MOVE_ACTION:
-                moveStyle.move();
+                moveStyle.move(moveSpeed);
                 break;
             case BACK_ACTION:
                 if ((timeCounter -= Time.deltaTime) < 0)
@@ -47,6 +48,31 @@ public class Fish: MonoBehaviour
                     action = MOVE_ACTION;
                 break;
         }
+
+        if ((aliveTime -= Time.deltaTime) < 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    void rnadom()
+    {
+        if ((changeTime -= Time.deltaTime) < 0)
+        {
+            changeTime = 5;
+            if (Random.value * 10 < 5)
+            {
+                action = LEFT_ACTION;
+                leftStyle.move(1);
+                changeTime += leftStyle.getAnimateTime();
+            }
+            else
+            {
+                action = RIGHT_ACTION;
+                rightStyle.move(1);
+                changeTime += rightStyle.getAnimateTime();
+            }
+            changeTime += (Random.value * 4) - 2;
+        }
     }
     void OnTriggerEnter(Collider other)
     {
@@ -54,7 +80,7 @@ public class Fish: MonoBehaviour
         {
             action = BACK_ACTION;
             timeCounter = backStyle.getAnimateTime();
-            backStyle.move();
+            backStyle.move(moveSpeed);
 #if DEBUG
             Debug.Log("touch the wall");
 #endif

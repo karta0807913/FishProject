@@ -6,7 +6,7 @@ public class turnBack : MonoBehaviour {
     public virtual float getAnimateTime(){
         return animateTime;
     }
-    public virtual void move()
+    public virtual void move(int speed)
     {
         this.transform.Rotate(0, 180, 0);
     }
