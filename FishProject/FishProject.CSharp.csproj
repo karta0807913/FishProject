@@ -70,6 +70,8 @@
     <Compile Include="Assets\FishBase\turnLeft.cs" />
     <Compile Include="Assets\FishBase\turnRight.cs" />
     <Compile Include="Assets\Gravity.cs" />
+    <Compile Include="Assets\NormalFish\N_Fish_Left.cs" />
+    <Compile Include="Assets\NormalFish\N_Fish_Right.cs" />
     <Compile Include="Assets\test2Can.cs" />
     <Compile Include="Assets\testCam.cs" />
   </ItemGroup>

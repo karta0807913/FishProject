@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class turnLeft : MonoBehaviour {
-    float animateTime = 0;
-    public virtual float getAnimateTime()
+    protected float animateTime = 0;
+    public float getAnimateTime()
     {
         return animateTime;
     }

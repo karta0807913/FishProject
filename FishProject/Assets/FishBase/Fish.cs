@@ -78,10 +78,10 @@ public class Fish: MonoBehaviour
     }
     void rnadom()
     {
-        if ((changeTime -= Time.deltaTime) < 0)
+        if ((changeTime -= Time.deltaTime) < 5)
         {
             changeTime = 5;
-            if (Random.value * 10 < 5)
+            if (Random.value * 10 < 10)
             {
                 anima.SetBool("left", true);
                 action = LEFT_ACTION;
