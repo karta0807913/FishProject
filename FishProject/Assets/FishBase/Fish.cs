@@ -8,10 +8,12 @@ public class Fish: MonoBehaviour
 #endif
     float aliveTime;
     int moveSpeed;
-    public FishMove moveStyle;
-    public turnBack backStyle;
-    public turnLeft leftStyle;
-    public turnRight rightStyle;
+    public Animator anima;
+    public GameObject childAni;
+    FishMove moveStyle;
+    turnBack backStyle;
+    turnLeft leftStyle;
+    turnRight rightStyle;
     float timeCounter;
     const int MOVE_ACTION   = 0;
     const int BACK_ACTION   = 1;
@@ -22,6 +24,14 @@ public class Fish: MonoBehaviour
     
     void Start()
     {
+        childAni = this.gameObject.transform.GetChild(0).gameObject;
+        anima = childAni.GetComponent<Animator>();
+        if (anima == null)
+            Debug.Log("OK");
+        backStyle = this.gameObject.GetComponent<turnBack>();
+        moveStyle = this.gameObject.GetComponent<FishMove>();
+        leftStyle = this.gameObject.GetComponent<turnLeft>();
+        rightStyle = this.gameObject.GetComponent<turnRight>();
         moveSpeed = 1;
         changeTime = 5 + (Random.value * 4) - 2;
         action = MOVE_ACTION;
@@ -36,16 +46,28 @@ public class Fish: MonoBehaviour
                 moveStyle.move(moveSpeed);
                 break;
             case BACK_ACTION:
-                if ((timeCounter -= Time.deltaTime) < 0)
+                backStyle.move(moveSpeed);
+                if ((timeCounter -= Time.deltaTime) < 0){
                     action = MOVE_ACTION;
+                    anima.SetBool("back", false);
+                    this.transform.Rotate(0, 180, 0);
+                }
                 break;
             case LEFT_ACTION:
-                if ((timeCounter -= Time.deltaTime) < 0)
+                leftStyle.move(moveSpeed);
+                if ((timeCounter -= Time.deltaTime) < 0){
                     action = MOVE_ACTION;
+                    anima.SetBool("left", false);
+                    this.transform.Rotate(0, -90, 0);
+                }
                 break;
             case RIGHT_ACTION:
-                if ((timeCounter -= Time.deltaTime) < 0)
+                rightStyle.move(moveSpeed);
+                if ((timeCounter -= Time.deltaTime) < 0) { 
                     action = MOVE_ACTION;
+                    anima.SetBool("right", false);
+                    this.transform.Rotate(0, 90, 0);
+                }
                 break;
         }
 
@@ -61,15 +83,17 @@ public class Fish: MonoBehaviour
             changeTime = 5;
             if (Random.value * 10 < 5)
             {
+                anima.SetBool("left", true);
                 action = LEFT_ACTION;
-                leftStyle.move(1);
                 changeTime += leftStyle.getAnimateTime();
+                timeCounter = leftStyle.getAnimateTime();
             }
             else
             {
+                anima.SetBool("right", true);
                 action = RIGHT_ACTION;
-                rightStyle.move(1);
                 changeTime += rightStyle.getAnimateTime();
+                timeCounter = rightStyle.getAnimateTime();
             }
             changeTime += (Random.value * 4) - 2;
         }
@@ -80,7 +104,6 @@ public class Fish: MonoBehaviour
         {
             action = BACK_ACTION;
             timeCounter = backStyle.getAnimateTime();
-            backStyle.move(moveSpeed);
 #if DEBUG
             Debug.Log("touch the wall");
 #endif
