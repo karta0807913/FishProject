@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class turnBack : MonoBehaviour {
-    float animateTime = 0;
+    protected float animateTime = 0;
     public float getAnimateTime(){
         return animateTime;
     }

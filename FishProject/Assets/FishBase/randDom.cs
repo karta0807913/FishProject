@@ -6,13 +6,6 @@ public class randDom : MonoBehaviour {
     public Transform[] vec;
 
     public GameObject fishObject;
-
-    // Use this for initialization
-    void Start () {
-        //vec = new Transform[9];
-    }
-	
-	// Update is called once per frame
 	void Update () {
 	
 	}

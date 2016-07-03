@@ -8,17 +8,20 @@ public class Fish: MonoBehaviour
 #endif
     float aliveTime;
     int moveSpeed;
-    public Animator anima;
-    public GameObject childAni;
+    Animator anima;
+    GameObject childAni;
     FishMove moveStyle;
     turnBack backStyle;
     turnLeft leftStyle;
     turnRight rightStyle;
     float timeCounter;
-    const int MOVE_ACTION   = 0;
-    const int BACK_ACTION   = 1;
-    const int LEFT_ACTION   = 2;
-    const int RIGHT_ACTION  = 3;
+    const int MOVE_ACTION       = 0;
+    const int BACK_ACTION       = 1;
+    const int LEFT_ACTION       = 2;
+    const int RIGHT_ACTION      = 3;
+    const int RANDOM_BASIC_TIME = 7;
+    const int RANDOM_SEED       = 4;
+    const int CUNTER_OFFEST     = 2;
     int action;
     public float changeTime;
     
@@ -26,15 +29,13 @@ public class Fish: MonoBehaviour
     {
         childAni = this.gameObject.transform.GetChild(0).gameObject;
         anima = childAni.GetComponent<Animator>();
-        if (anima == null)
-            Debug.Log("OK");
         backStyle = this.gameObject.GetComponent<turnBack>();
         moveStyle = this.gameObject.GetComponent<FishMove>();
         leftStyle = this.gameObject.GetComponent<turnLeft>();
         rightStyle = this.gameObject.GetComponent<turnRight>();
-        moveSpeed = 1;
-        changeTime = 5 + (Random.value * 4) - 2;
+        changeTime = RANDOM_BASIC_TIME + (Random.value * RANDOM_SEED);
         action = MOVE_ACTION;
+        moveSpeed = 1;
         aliveTime = 1200;
     }
 
@@ -78,21 +79,21 @@ public class Fish: MonoBehaviour
     }
     void rnadom()
     {
-        if ((changeTime -= Time.deltaTime) < 5)
+        if ((changeTime -= Time.deltaTime) < 0)
         {
             changeTime = 5;
-            if (Random.value * 10 < 10)
+            if (Random.value * 10 < 5)
             {
                 anima.SetBool("left", true);
                 action = LEFT_ACTION;
-                changeTime += leftStyle.getAnimateTime();
+                changeTime += leftStyle.getAnimateTime() + CUNTER_OFFEST;
                 timeCounter = leftStyle.getAnimateTime();
             }
             else
             {
                 anima.SetBool("right", true);
                 action = RIGHT_ACTION;
-                changeTime += rightStyle.getAnimateTime();
+                changeTime += rightStyle.getAnimateTime() + CUNTER_OFFEST;
                 timeCounter = rightStyle.getAnimateTime();
             }
             changeTime += (Random.value * 4) - 2;
@@ -102,7 +103,9 @@ public class Fish: MonoBehaviour
     {
         if (other.tag == "wall")
         {
+            anima.SetBool("back", true);
             action = BACK_ACTION;
+            changeTime += rightStyle.getAnimateTime() + CUNTER_OFFEST;
             timeCounter = backStyle.getAnimateTime();
 #if DEBUG
             Debug.Log("touch the wall");
