@@ -20,6 +20,7 @@ public class Gravity : MonoBehaviour {
             return;
         speed -= speed /20;
         Destroy(this, 1);
+        gameObject.GetComponent<Fish>().enabled = true;
         speedArg = -speedArg;
     }
 }
