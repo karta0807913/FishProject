@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class turnRight : MonoBehaviour {
+public class turnRight : MonoBehaviour
+{
     protected float animateTime = 0;
     public float getAnimateTime()
     {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Xml.Serialization;
 
 public class Fish: MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class Fish: MonoBehaviour
     int moveSpeed;
     Animator anima;
     GameObject childAni;
+
     FishMove moveStyle;
     turnBack backStyle;
     turnLeft leftStyle;
     turnRight rightStyle;
-    float timeCounter;
+
     const int MOVE_ACTION       = 0;
     const int BACK_ACTION       = 1;
     const int LEFT_ACTION       = 2;
@@ -23,6 +25,8 @@ public class Fish: MonoBehaviour
     const int RANDOM_SEED       = 4;
     const int CUNTER_OFFEST     = 2;
     int action;
+
+    float timeCounter;
     public float changeTime;
     
     void Start()
@@ -103,6 +107,8 @@ public class Fish: MonoBehaviour
     {
         if (other.tag == "wall")
         {
+            if (anima == null)
+                return;
             anima.SetBool("back", true);
             action = BACK_ACTION;
             changeTime += rightStyle.getAnimateTime() + CUNTER_OFFEST;

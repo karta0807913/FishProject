@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class turnLeft : MonoBehaviour {
+public class turnLeft : MonoBehaviour
+{
     protected float animateTime = 0;
     public float getAnimateTime()
     {
