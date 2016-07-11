@@ -21,8 +21,8 @@ public class Fish: MonoBehaviour
     const int BACK_ACTION       = 1;
     const int LEFT_ACTION       = 2;
     const int RIGHT_ACTION      = 3;
-    const int RANDOM_BASIC_TIME = 7;
-    const int RANDOM_SEED       = 4;
+    const int RANDOM_BASIC_TIME = 4;
+    const int RANDOM_SEED       = 5;
     const int CUNTER_OFFEST     = 2;
     int action;
 
@@ -81,6 +81,7 @@ public class Fish: MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
     void rnadom()
     {
         if ((changeTime -= Time.deltaTime) < 0)
@@ -103,6 +104,7 @@ public class Fish: MonoBehaviour
             changeTime += (Random.value * 4) - 2;
         }
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "wall")

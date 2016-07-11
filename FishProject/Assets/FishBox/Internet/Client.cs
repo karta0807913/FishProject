@@ -21,8 +21,8 @@ public class Client : MonoBehaviour
 
     public CreateFish createFish;
 
-    private const string dirPath = "Assets/Resources/tmpPic/";
-    private const string picType = ".jpg";
+    private const string dirPath = "/Assets/Resources/tmpPic/";
+    private const string picType = ".bmp";
 
     // Use this for initialization
     void Start()
