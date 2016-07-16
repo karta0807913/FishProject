@@ -14,15 +14,15 @@ public class Client : MonoBehaviour
     private Socket _clientSocket = new Socket(AddressFamily.InterNetwork,
         SocketType.Stream, ProtocolType.Tcp);
     private byte[] _recieveBuffer = new byte[12288];
-    private byte[] _picBuffer = new byte[1048576];
-    private const byte END_SYNBOL = (byte)';';
+    private byte[] _picBuffer = new byte[10485760];
+    private const char END_SYNBOL = ';';
     private int picSize = 0;
 
 
     public CreateFish createFish;
 
-    private const string dirPath = "/Assets/Resources/tmpPic/";
-    private const string picType = ".bmp";
+    private const string dirPath = "";
+    private const string picType = "";
 
     // Use this for initialization
     void Start()
@@ -53,7 +53,8 @@ public class Client : MonoBehaviour
 
         Buffer.BlockCopy(_recieveBuffer, 0, _picBuffer, picSize, recieved);
         picSize += recieved;
-        if (_picBuffer[picSize - 1] == END_SYNBOL)
+        Debug.Log((char)_picBuffer[picSize - 1]);
+        if ((char)_picBuffer[picSize - 1] == END_SYNBOL)
         {
             byte[] recData = new byte[picSize - 1];
             Buffer.BlockCopy(_picBuffer, 0, recData, 0, picSize - 1);
@@ -69,15 +70,13 @@ public class Client : MonoBehaviour
     {
         string picName = hashName_MD5(data);
         string path = dirPath + picName + picType;
-
         if (File.Exists(path))
         {
             Debug.Log("This Pic Exist");
         }
         else
         {
-            File.WriteAllBytes(path, data);
-            Debug.Log("Pic Have Be Saved");
+            File.WriteAllBytes(path, clearnBackground(data));
             createFish.createFish(picName);
         }
     }
@@ -99,6 +98,16 @@ public class Client : MonoBehaviour
         }
 
         return hashString.PadLeft(32, '0');
+    }
+
+    private byte[] clearnBackground(byte[] sourceData)
+    {
+        return sourceData;
+    }
+
+    ~Client()
+    {
+        _clientSocket.Close();
     }
 
 }

@@ -69,6 +69,7 @@
     <Compile Include="Assets\FishBase\turnBack.cs" />
     <Compile Include="Assets\FishBase\turnLeft.cs" />
     <Compile Include="Assets\FishBase\turnRight.cs" />
+    <Compile Include="Assets\FishBox\BitmapManager.cs" />
     <Compile Include="Assets\FishBox\CreateFish.cs" />
     <Compile Include="Assets\FishBox\Internet\Client.cs" />
     <Compile Include="Assets\FishBox\Internet\ClientReff.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="Assets\NormalFish\Script\N_Fish_Right.cs" />
     <Compile Include="Assets\ObjectSaveLoad.cs" />
     <Compile Include="Assets\Resources\test.cs" />
-    <Compile Include="Assets\Resources\tmpPic\Materials\ChangeTex.cs" />
     <Compile Include="Assets\SaveTest.cs" />
     <Compile Include="Assets\test2Can.cs" />
     <Compile Include="Assets\testCam.cs" />

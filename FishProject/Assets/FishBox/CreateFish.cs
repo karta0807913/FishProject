@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 
 public class CreateFish : MonoBehaviour {
 
-    public const string defPath = "tmpPic/";
+    public const string defPath = "";//"tmpPic/";
     public Transform[] vec;
     public GameObject fishObject;
     public Texture tex;
@@ -21,10 +22,8 @@ public class CreateFish : MonoBehaviour {
     {
         if (boolean)
         {
-            Debug.Log("Fish is ready");
             Material material = new Material(Shader.Find("Sprites/Default"));
-            tex = Resources.Load(defPath + picName) as Texture;
-            //tex = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture>(defPath + picName);
+            tex = readTexture(defPath + picName);
             material.mainTexture = tex;
 
             int ran = (int)(Random.value * 10 % 9);
@@ -34,6 +33,16 @@ public class CreateFish : MonoBehaviour {
             Debug.Log("Fish Created");
             boolean = false;
         }
+    }
+
+    private static Texture readTexture(string path)
+    {
+        //return UnityEditor.AssetDatabase.LoadAssetAtPath<Texture>(path + ".bmp");
+        //return Resources.Load(path) as Texture;
+        byte[] bytes = File.ReadAllBytes(path);
+        Texture2D tex2D = new Texture2D(1, 1);
+        tex2D.LoadImage(bytes);
+        return tex2D;
     }
 
     public void createFish(string picName)
