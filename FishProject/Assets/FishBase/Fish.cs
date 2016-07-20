@@ -7,7 +7,6 @@ public class Fish: MonoBehaviour
 #if DEBUG
     public
 #endif
-    float aliveTime;
     int moveSpeed;
     Animator anima;
     GameObject childAni;
@@ -23,6 +22,7 @@ public class Fish: MonoBehaviour
     const int RIGHT_ACTION      = 3;
     const int RANDOM_BASIC_TIME = 4;
     const int RANDOM_SEED       = 5;
+
     const int CUNTER_OFFEST     = 2;
     int action;
 
@@ -40,7 +40,6 @@ public class Fish: MonoBehaviour
         changeTime = RANDOM_BASIC_TIME + (Random.value * RANDOM_SEED);
         action = MOVE_ACTION;
         moveSpeed = 1;
-        aliveTime = 1200;
     }
 
 	void Update ()
@@ -74,11 +73,6 @@ public class Fish: MonoBehaviour
                     this.transform.Rotate(0, 90, 0);
                 }
                 break;
-        }
-
-        if ((aliveTime -= Time.deltaTime) < 0)
-        {
-            Destroy(this.gameObject);
         }
     }
 
@@ -115,12 +109,6 @@ public class Fish: MonoBehaviour
             action = BACK_ACTION;
             changeTime += rightStyle.getAnimateTime() + CUNTER_OFFEST;
             timeCounter = backStyle.getAnimateTime();
-#if DEBUG
-            Debug.Log("touch the wall");
-#endif
         }
-#if DEBUG
-        else { Debug.Log("touch the other thing unknow"); }
-#endif
     }
 }

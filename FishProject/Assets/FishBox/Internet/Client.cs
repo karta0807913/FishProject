@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Net.Sockets;
 using System.Net;
 using System;
@@ -15,7 +14,7 @@ public class Client : MonoBehaviour
         SocketType.Stream, ProtocolType.Tcp);
     private byte[] _recieveBuffer = new byte[12288];
     private byte[] _picBuffer = new byte[10485760];
-    private const char END_SYNBOL = ';';
+    private const char END_SYNBOL = '\0';
     private int picSize = 0;
 
 
@@ -40,7 +39,35 @@ public class Client : MonoBehaviour
         //start listening
         //we dont need to sent something to server
         _clientSocket.BeginReceive(_recieveBuffer, 0, _recieveBuffer.Length,
-            SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+            SocketFlags.None, new AsyncCallback(waitForStateCode), null);
+    }
+
+    private void waitForStateCode(IAsyncResult AR)
+    {
+        Debug.Log("get data");
+        int recieved = _clientSocket.EndReceive(AR);
+        if (recieved != 2){
+            _clientSocket.BeginReceive(_recieveBuffer, 0, _recieveBuffer.Length,
+                SocketFlags.None, new AsyncCallback(waitForStateCode), null);
+            return;
+        }
+
+        if ((char)_recieveBuffer[0] == 'e' &&
+                (char)_recieveBuffer[1] == 'p')
+        {
+            byte[] data = new byte[2];
+            data[0] = (byte)'g';
+            data[1] = (byte)'t';
+            _clientSocket.Send(data);
+
+            Debug.Log("Server connected");
+
+            _clientSocket.BeginReceive(_recieveBuffer, 0, _recieveBuffer.Length,
+                SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
+        }
+        else{
+            _clientSocket.Close();
+        }
     }
 
     //get the package
@@ -53,7 +80,6 @@ public class Client : MonoBehaviour
 
         Buffer.BlockCopy(_recieveBuffer, 0, _picBuffer, picSize, recieved);
         picSize += recieved;
-        Debug.Log((char)_picBuffer[picSize - 1]);
         if ((char)_picBuffer[picSize - 1] == END_SYNBOL)
         {
             byte[] recData = new byte[picSize - 1];
@@ -70,12 +96,9 @@ public class Client : MonoBehaviour
     {
         string picName = hashName_MD5(data);
         string path = dirPath + picName + picType;
-        if (File.Exists(path))
-        {
+        if (File.Exists(path)){
             Debug.Log("This Pic Exist");
-        }
-        else
-        {
+        } else {
             File.WriteAllBytes(path, clearnBackground(data));
             createFish.createFish(picName);
         }

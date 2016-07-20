@@ -1,0 +1,19 @@
+when someone connect 
+	state 1 : no unity project connect
+		return 'ep'
+	state 2: unity is connected and no one deliver data
+		return 'al'
+	state 3: unity is connected and someone is delivering data
+		return 'bz'
+
+when unity connect
+	state 1: no another untiy connect
+		sent 'gt' to get the control
+	state 2: another unity is connecting
+		disconnect
+
+when data transform to untiy, the end byte is '\0'
+
+when client want to sent data to server 
+	'lk'
+

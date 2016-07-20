@@ -23,7 +23,7 @@ public class UpdateClass extends Thread {
     final int PORT;
     final String path;
     final Context context;
-    final static float deviation = 3.4f;
+    final static float deviation = 1f;
 
     public UpdateClass(Context context, String host, int port, String path)
     {
@@ -72,15 +72,19 @@ public class UpdateClass extends Thread {
         return  byteArray;
     }
 
-    private static boolean updateBmp(Bitmap bmp, String HOST, int PORT)
+    private boolean updateBmp(Bitmap bmp, String HOST, int PORT)
     {
         if(bmp == null || HOST == null || PORT < 1)
             return false;
+        //getBitmapByteArray(cleanBackground(bmp));
         try {
-            Socket socket = new Socket(HOST, PORT);
-            socket.getOutputStream().write(getBitmapByteArray(cleanBackground(bmp)));
-            socket.close();
-        } catch (IOException e) {
+            ServerConnect mSocket = new ServerConnect(HOST, PORT);
+            while(!mSocket.connect()){
+                sleep(500);
+            }
+            mSocket.writeData(getBitmapByteArray(cleanBackground(bmp)));
+            mSocket.close();
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -192,6 +196,9 @@ public class UpdateClass extends Thread {
 
         average += (max - average) *
                 ((bucket[max] / (float)pixels.length) * deviation) * argement;
+
+        if(average > 240)
+            average = 240;
 
         for(int index = 0; index < pixels.length; ++index){
             bool[index] = computeWeight(pixels[index]) > average;
