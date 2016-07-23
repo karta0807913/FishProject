@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class CreateFish : MonoBehaviour {
 
+    #region CONST
     const string fishPath = "NormalFish/";
     const string picPath = "";
+    #endregion
+
     const int _BUFFER_SIZE = 20;
     public Transform[] vec;
     FishManager fishManager;
-    List<pair<string, GameObject>> fishBuffer;
     GameObject fishObject;
+    List<pair<string, GameObject>> fishBuffer;
     bool boolean = false;
 
     void Start()
@@ -53,6 +56,7 @@ public class CreateFish : MonoBehaviour {
         return tex2D;
     }
 
+    #region CREATE_FUNCTION
     public void createFish(string picName)
     {
         var data = new pair<string, GameObject>(picName, null);
@@ -77,4 +81,5 @@ public class CreateFish : MonoBehaviour {
             boolean = true;
         }
     }
+    #endregion
 }

@@ -104,21 +104,8 @@ public class UpdateClass extends Thread {
         return path;
     }
 
-    private static Uri checkUri(final Context context, final Uri uri)
-    {
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        if(isKitKat && DocumentsContract.isDocumentUri(context, uri)){
-            if(uri.toString().contains("%3A")){
-                final String[] split = uri.toString().split("%3A");
-                return Uri.parse(split[0] + ":" + split[1]);
-            }
-        }
-        return uri;
-    }
-
     private static String getFilePathFromUri(final Context context, Uri uri)
     {
-        uri = checkUri(context, uri);
         CursorLoader cursorLoader= new CursorLoader(
                 context,
                 uri,
@@ -137,7 +124,8 @@ public class UpdateClass extends Thread {
         return returnStr;
     }
 
-    private static Bitmap cleanBackground(Bitmap sourceBmp) {
+    private static Bitmap cleanBackground(Bitmap sourceBmp)
+    {
         int pixels[] = getPixels(sourceBmp);
         return cleanBackground(pixels, sourceBmp.getWidth(),
                 sourceBmp.getHeight(), sourceBmp.getConfig());
@@ -207,7 +195,8 @@ public class UpdateClass extends Thread {
         return bool;
     }
 
-    private static int computeWeight(int color){
+    private static int computeWeight(int color)
+    {
         int counter = Color.red(color);
         counter += Color.green(color);
         counter += Color.blue(color);
@@ -230,3 +219,18 @@ public class UpdateClass extends Thread {
         return bool;
     }
 }
+
+
+    /*
+    private static Uri checkUri(final Context context, final Uri uri)
+    {
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        if(isKitKat && DocumentsContract.isDocumentUri(context, uri)){
+            if(uri.toString().contains("%3A")){
+                final String[] split = uri.toString().split("%3A");
+                return Uri.parse(split[0] + ":" + split[1]);
+            }
+        }
+        return uri;
+    }
+    */

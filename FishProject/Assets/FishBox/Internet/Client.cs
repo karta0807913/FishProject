@@ -12,6 +12,7 @@ public class Client : MonoBehaviour
 
     private Socket _clientSocket = new Socket(AddressFamily.InterNetwork,
         SocketType.Stream, ProtocolType.Tcp);
+
     private byte[] _recieveBuffer = new byte[12288];
     private byte[] _picBuffer = new byte[10485760];
     private const char END_SYNBOL = '\0';

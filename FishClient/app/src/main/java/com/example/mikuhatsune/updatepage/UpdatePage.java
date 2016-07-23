@@ -31,7 +31,8 @@ public class UpdatePage extends AppCompatActivity {
         });
     }
 
-    public void selectFile(String types, int flag){
+    public void selectFile(String types, int flag)
+    {
         Intent getImage = new Intent(Intent.ACTION_GET_CONTENT);
         getImage.addCategory(Intent.CATEGORY_OPENABLE);
         getImage.setType(types);
@@ -54,12 +55,5 @@ public class UpdatePage extends AppCompatActivity {
                 (new UpdateClass(getApplicationContext(), HOST, PORT, path)).start();
             }
         }
-    }
-
-    public byte[] getBytesFromBitmap(Bitmap bitmap)
-    {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-        return stream.toByteArray();
     }
 }

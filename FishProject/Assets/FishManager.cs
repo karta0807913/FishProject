@@ -23,12 +23,6 @@ public class FishManager : MonoBehaviour {
         }
     }
 
-    void OnApplicationQuit()
-    {
-        Debug.Log("data saving");
-        Save(savePath, fishDataArray);
-    }
-
     public void addData(pair<string, GameObject> data)
     {
         Debug.Log("adding data");
@@ -43,6 +37,12 @@ public class FishManager : MonoBehaviour {
                 break;
             }
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        Debug.Log("data saving");
+        Save(savePath, fishDataArray);
     }
 
     public static T Load<T>(string path)
