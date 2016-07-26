@@ -12,7 +12,8 @@ public class Gravity : MonoBehaviour {
     }
 	
 	void Update () {
-        this.transform.Translate(0, -(speed += Time.deltaTime * speedArg) *Time.deltaTime, 0);
+        this.transform.Translate(0, -(speed += Time.deltaTime * speedArg) *Time.deltaTime* (Random.value*100%6+1), 0);
+       
     }
     void OnTriggerEnter(Collider other)
     {
