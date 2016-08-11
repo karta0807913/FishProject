@@ -19,9 +19,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/update"
-        android:id="@+id/updateButton"
+        android:text="@string/select"
+        android:id="@+id/SelectButton"
+        android:layout_marginBottom="59dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/camera"
+        android:id="@+id/CameraButton"
+        android:layout_alignTop="@+id/SelectButton"
+        android:layout_toEndOf="@+id/SelectButton" />
 </RelativeLayout>

@@ -71,6 +71,7 @@
     <Compile Include="Assets\FishBase\turnRight.cs" />
     <Compile Include="Assets\FishBox\BitmapManager.cs" />
     <Compile Include="Assets\FishBox\CreateFish.cs" />
+    <Compile Include="Assets\FishBox\Internet\BroadCastReceiver.cs" />
     <Compile Include="Assets\FishBox\Internet\Client.cs" />
     <Compile Include="Assets\FishBox\Internet\ClientReff.cs" />
     <Compile Include="Assets\FishManager.cs" />

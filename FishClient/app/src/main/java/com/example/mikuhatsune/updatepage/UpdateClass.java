@@ -1,7 +1,9 @@
 package com.example.mikuhatsune.updatepage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,12 +21,16 @@ import java.net.Socket;
 
 public class UpdateClass extends Thread {
 
-    //final Activity
-    final String HOST;
-    final int PORT;
-    final String path;
-    final Context context;
-    final static float deviation = 1f;
+    final static int BITMAP = 0;
+    final static int INTENT = 1;
+
+    Context context;
+    String HOST;
+    int PORT;
+    String path;
+    Bitmap bitmap;
+    final static float deviation = 3.4f;
+    int state;
 
     public UpdateClass(Context context, String host, int port, String path)
     {
@@ -31,13 +38,25 @@ public class UpdateClass extends Thread {
         PORT = port;
         this.path = path;
         this.context = context;
+        state = INTENT;
+    }
+
+    public UpdateClass(Context context, String host, int port, Bitmap bitmap){
+        HOST = host;
+        PORT = port;
+        this.context = context;
+        this.bitmap = bitmap;
+        state = BITMAP;
     }
 
     @Override
     public void run()
     {
         super.run();
-        updateBmp(image2Bitmap(path), HOST, PORT);
+        if(state == INTENT)
+            updateBmp(image2Bitmap(path), HOST, PORT);
+        else if(state == BITMAP)
+            updateBmp(bitmap, HOST, PORT);
     }
 
     private Bitmap image2Bitmap(String path)
@@ -106,6 +125,25 @@ public class UpdateClass extends Thread {
 
     private static String getFilePathFromUri(final Context context, Uri uri)
     {
+        /** /
+        try {
+            Uri selectedImage = uri;
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = (context).getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            return picturePath;
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return null;
+        /*/
         CursorLoader cursorLoader= new CursorLoader(
                 context,
                 uri,
@@ -122,6 +160,7 @@ public class UpdateClass extends Thread {
             cursor.close();
         }
         return returnStr;
+        /**/
     }
 
     private static Bitmap cleanBackground(Bitmap sourceBmp)
