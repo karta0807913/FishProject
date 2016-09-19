@@ -174,7 +174,7 @@ public class UpdateClass extends Thread {
                                    int width, int height, Bitmap.Config config)
     {
 
-        boolean[] binar = binarization(pixels);
+        boolean[] binar = binarization(pixels, width, height);
         //binar = imageContour(binar, width,height);
 
         for(int index = 0; index < pixels.length; ++index){
@@ -192,44 +192,41 @@ public class UpdateClass extends Thread {
         return pixels;
     }
 
-    private static boolean[] binarization(int[] pixels)
-    {
-        boolean[] bool = new boolean[pixels.length];
-        int[] bucket = new int [256];
+    private static boolean[] computeLocal(int[] pixels, boolean bool, int startX, int endX, int startY, int endY, int height){
         float average = 0;
-        for(int pixel : pixels){
-            int weight = computeWeight(pixel);
-            average += weight;
-            ++bucket[weight];
-        }
+        int m = (endX - startX) * (endY - startY);
 
-        int max = 0;
-        for(int index = 0; index < bucket.length; ++index){
-            if(bucket[index] > bucket[max]) {
-                max = index;
+        for(int column = startY; column < endY; ++column){
+            for(int row = startX; row < endX; ++row){
+                average = computeWeight(pixels[row + column * height]) / m;
             }
         }
 
-        int argement;
-        if(bucket[max] < average){
-            argement = 1;
-        }else if (bucket[max] > average){
-            argement = -1;
-        }else{
-            argement = 0;
+        for(int column = startY; column < endY; ++column){
+            for(int row = startX; row < endX; ++row){
+                bool[row + column * height] = computeWeight(pixels[row + column * height]) > average;
+            }
         }
 
-        average /= pixels.length;
+        return bool;
+    }
 
-        average += (max - average) *
-                ((bucket[max] / (float)pixels.length) * deviation) * argement;
+    private static boolean[] binarization(int[] pixels, int width, int height)
+    {
+        boolean[] bool = new boolean[pixels.length];
+        final int xSize = 10;
+        final int ySize = 10;
 
-        if(average > 240)
-            average = 240;
+        int xLength = width / xSize;
+        int yLength = height / ySize;
 
-        for(int index = 0; index < pixels.length; ++index){
-            bool[index] = computeWeight(pixels[index]) > average;
+        for(int y = 0; y < yLength; ++y){
+            for(int x = 0; x < xlength; ++x){
+                computeLocal(pixels, bool, x * xSize, (x + 1) * xSize, y * ySize, (y + 1) * ySize, height);
+            }
         }
+
+        computeLocal(pixels, bool, xSize * xLenght, width, ySize * yLength, height, height);
 
         return bool;
     }
