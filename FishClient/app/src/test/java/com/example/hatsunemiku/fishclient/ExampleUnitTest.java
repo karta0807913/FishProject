@@ -1,4 +1,4 @@
-package com.example.mikuhatsune.updatepage;
+package com.example.hatsunemiku.fishclient;
 
 import org.junit.Test;
 

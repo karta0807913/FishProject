@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="big5"?>
+<?xml version="1.0" encoding="shift_jis"?>
 <FishDataArray xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <List>
-    <fishPicName>d9be67c12e84cdc800243e0a90f31b8a</fishPicName>
-    <fishPicName>871eae6048c8e8603a7d44e3cdfe7646</fishPicName>
+    <fishPicName>5ab2b722e3c534ba5ee30ffb20583b92</fishPicName>
   </List>
 </FishDataArray>

@@ -109,60 +109,6 @@ public class UpdateClass extends Thread {
         return true;
     }
 
-    public static String getPathFromUri(final Context context, final Uri uri)
-    {
-        final String scheme = uri.getScheme();
-        String path = null;
-        if ("content".equals(scheme)) {
-            // 內容URI
-            path = getFilePathFromUri(context, uri);
-        } else if ("file".equals(scheme)) {
-            // 檔案URI
-            path = uri.getPath();
-        }
-        return path;
-    }
-
-    private static String getFilePathFromUri(final Context context, Uri uri)
-    {
-        /** /
-        try {
-            Uri selectedImage = uri;
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-            Cursor cursor = (context).getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-            return picturePath;
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-        return null;
-        /*/
-        CursorLoader cursorLoader= new CursorLoader(
-                context,
-                uri,
-                new String[]{ "_data" },
-                null,
-                null,
-                null
-        );
-        String returnStr = "";
-        Cursor cursor = cursorLoader.loadInBackground();
-        if(cursor.getCount()!=0){
-            cursor.moveToFirst();
-            returnStr = cursor.getString(cursor.getColumnIndexOrThrow("_data"));
-            cursor.close();
-        }
-        return returnStr;
-        /**/
-    }
-
     private static Bitmap cleanBackground(Bitmap sourceBmp)
     {
         int pixels[] = getPixels(sourceBmp);
